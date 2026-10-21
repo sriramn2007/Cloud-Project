@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: hospital
+  labels:
+    project: hospital-cloud-autoscaling
+    data-classification: synthetic-demo

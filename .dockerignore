@@ -1,0 +1,17 @@
+**/.venv/
+**/venv/
+**/__pycache__/
+**/.pytest_cache/
+**/*.py[cod]
+frontend/node_modules/
+frontend/dist/
+ml/data/
+ml/models/
+results/
+.git/
+.gitignore
+.env
+.env.*
+!data/
+!data/uci/
+!data/uci/*.csv

@@ -1,0 +1,20 @@
+{
+  "annotations": {"list": []},
+  "editable": true,
+  "panels": [
+    {"title":"Pod CPU Usage","type":"timeseries","datasource":{"type":"prometheus","uid":"prometheus"},"targets":[{"expr":"sum by (pod) (rate(container_cpu_usage_seconds_total{namespace=\"hospital\",container!=\"POD\",container!=\"\"}[2m]))","legendFormat":"{{pod}}"}],"fieldConfig":{"defaults":{"unit":"percentunit"}},"gridPos":{"h":8,"w":12,"x":0,"y":0}},
+    {"title":"Pod Memory Usage","type":"timeseries","datasource":{"type":"prometheus","uid":"prometheus"},"targets":[{"expr":"sum by (pod) (container_memory_working_set_bytes{namespace=\"hospital\",container!=\"POD\",container!=\"\"})","legendFormat":"{{pod}}"}],"fieldConfig":{"defaults":{"unit":"bytes"}},"gridPos":{"h":8,"w":12,"x":12,"y":0}},
+    {"title":"Patient-Service Request Rate","type":"timeseries","datasource":{"type":"prometheus","uid":"prometheus"},"targets":[{"expr":"sum by (path) (rate(patient_service_requests_total{namespace=\"hospital\"}[2m]))","legendFormat":"{{path}}"}],"fieldConfig":{"defaults":{"unit":"reqps"}},"gridPos":{"h":8,"w":12,"x":0,"y":8}},
+    {"title":"95th Percentile Request Latency","type":"timeseries","datasource":{"type":"prometheus","uid":"prometheus"},"targets":[{"expr":"histogram_quantile(0.95, sum by (le) (rate(patient_service_request_duration_seconds_bucket{namespace=\"hospital\"}[2m])))","legendFormat":"p95"}],"fieldConfig":{"defaults":{"unit":"s"}},"gridPos":{"h":8,"w":12,"x":12,"y":8}},
+    {"title":"Available Replicas","type":"timeseries","datasource":{"type":"prometheus","uid":"prometheus"},"targets":[{"expr":"kube_deployment_status_replicas_available{namespace=\"hospital\",deployment=\"patient-service\"}","legendFormat":"available"}],"gridPos":{"h":8,"w":8,"x":0,"y":16}},
+    {"title":"HPA Desired Replicas","type":"timeseries","datasource":{"type":"prometheus","uid":"prometheus"},"targets":[{"expr":"kube_horizontalpodautoscaler_status_desired_replicas{namespace=\"hospital\",horizontalpodautoscaler=\"patient-service\"}","legendFormat":"desired"}],"gridPos":{"h":8,"w":8,"x":8,"y":16}},
+    {"title":"HPA Current Replicas","type":"timeseries","datasource":{"type":"prometheus","uid":"prometheus"},"targets":[{"expr":"kube_horizontalpodautoscaler_status_current_replicas{namespace=\"hospital\",horizontalpodautoscaler=\"patient-service\"}","legendFormat":"current"}],"gridPos":{"h":8,"w":8,"x":16,"y":16}}
+  ],
+  "schemaVersion": 39,
+  "tags": ["hospital-cloud", "kubernetes", "autoscaling"],
+  "templating": {"list": []},
+  "time": {"from": "now-30m", "to": "now"},
+  "title": "Hospital Kubernetes Workload Monitoring",
+  "uid": "hospital-k8s-monitoring",
+  "version": 1
+}
